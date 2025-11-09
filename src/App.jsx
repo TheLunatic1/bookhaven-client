@@ -1,4 +1,3 @@
-// src/App.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useAuth } from "./hooks/useAuth";
 import Layout from "./components/Layout";
@@ -8,7 +7,7 @@ import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 
 function App() {
-  const { user, loading } = useAuth();
+  const { user, loading, setUser } = useAuth(); // ← Add setUser
 
   if (loading) {
     return (
@@ -21,10 +20,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout user={user} setUser={(u) => {}} />}>
+        <Route element={<Layout user={user} setUser={setUser} />}>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login setUser={setUser} />} />
+          <Route path="/register" element={<Register setUser={setUser} />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

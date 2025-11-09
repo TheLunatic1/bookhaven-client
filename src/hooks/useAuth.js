@@ -15,5 +15,5 @@ export const useAuth = () => {
     return () => unsubscribe();
   }, []);
 
-  return { user, loading };
+  return { user, loading, setUser };
 };
