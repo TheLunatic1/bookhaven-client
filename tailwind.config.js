@@ -1,17 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [
-    require('daisyui'),          // <-- enable DaisyUI
-  ],
+  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
+  theme: { extend: {} },
+  plugins: [require("daisyui")],
   daisyui: {
-    themes: ["light", "dark"],   // auto dark toggle support
-    darkTheme: "dark",          // default dark
+    themes: ["light", "dark"],   // enable toggle later
   },
 };
