@@ -1,8 +1,25 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { useEffect, useState } from "react";
+import API from "../services/api";
 
 export default function Home() {
   const { user } = useAuth();
+  const [latestBooks, setLatestBooks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchLatest = async () => {
+      try {
+        const res = await API.get("/books/latest");
+        setLatestBooks(res.data);
+      } catch (err) {
+        console.error("Failed to load latest books");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchLatest();
+  }, []);
 
   return (
     <div className="min-h-screen bg-base-200">
@@ -30,6 +47,63 @@ export default function Home() {
                 </Link>
               )}
             </div>
+          </div>
+        </div>
+      </div>
+
+
+      {/* LATEST BOOKS SECTION */}
+      <div className="py-16 px-4 bg-base-100">
+        <div className="container mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12 text-amber-900 dark:text-amber-100">
+            Latest Additions
+          </h2>
+
+          {loading ? (
+            <div className="flex justify-center">
+              <span className="loading loading-spinner loading-lg"></span>
+            </div>
+          ) : latestBooks.length === 0 ? (
+            <p className="text-center text-base-content/60">No books yet. Be the first to add one!</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {latestBooks.map((book) => (
+                <Link
+                  key={book._id}
+                  to={`/book/${book._id}`}
+                  className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow border border-amber-200 dark:border-amber-800"
+                >
+                  <figure className="px-4 pt-4">
+                    <img
+                      src={book.coverImage}
+                      alt={book.title}
+                      className="rounded-xl h-48 w-full object-cover"
+                      onError={(e) => (e.target.src = "https://via.placeholder.com/300x450?text=No+Cover")}
+                    />
+                  </figure>
+                  <div className="card-body p-4">
+                    <h3 className="card-title text-lg line-clamp-1">{book.title}</h3>
+                    <p className="text-sm text-base-content/70">by {book.author}</p>
+                    <div className="flex items-center gap-1 mt-2">
+                      {[...Array(5)].map((_, i) => (
+                        <span
+                          key={i}
+                          className={`text-sm ${i < book.rating ? "text-warning" : "text-base-300"}`}
+                        >
+                          ★
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+
+          <div className="text-center mt-10">
+            <Link to="/all-books" className="btn btn-outline">
+              View All Books →
+            </Link>
           </div>
         </div>
       </div>
