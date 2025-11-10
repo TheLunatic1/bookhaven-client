@@ -59,15 +59,15 @@ export default function Home() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.9, duration: 0.6 }}
             >
-              <Link to="/all-books" className="btn btn-primary">
+              <Link to="/all-books" className="btn btn-outline bg-transparent">
                 All Books
               </Link>
               {user ? (
-                <Link to="/add-book" className="btn btn-outline">
+                <Link to="/add-book" className="btn btn-outline bg-transparent">
                   Create Book
                 </Link>
               ) : (
-                <Link to="/register" className="btn btn-outline">
+                <Link to="/register" className="btn btn-outline bg-transparent">
                   Join Now
                 </Link>
               )}

@@ -3,6 +3,7 @@ import API from "../services/api";
 import { useAuth } from "../hooks/useAuth";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Tooltip } from "react-tooltip";
 
 export default function MyBooks() {
   const { user } = useAuth();
@@ -45,7 +46,13 @@ export default function MyBooks() {
             </figure>
             <div className="card-body">
               <h2 className="card-title">{book.title}</h2>
-              <p className="text-sm">by {book.author}</p>
+              <p 
+                className="text-sm text-base-content/70"
+                data-tooltip-id="author-tooltip"
+                data-tooltip-content={`Added by: ${book.userName || book.userEmail}`}
+              >
+                by {book.author}
+              </p>
               <div className="card-actions justify-end mt-4">
                 <Link to={`/edit-book/${book._id}`} className="btn btn-sm btn-outline">
                   Edit
@@ -57,6 +64,7 @@ export default function MyBooks() {
                   Delete
                 </button>
               </div>
+              <Tooltip id="author-tooltip" />
             </div>
           </div>
         ))}

@@ -3,6 +3,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
+import { Tooltip } from "react-tooltip";
 
 export default function Navbar({ user, setUser }) {
   const navigate = useNavigate();
@@ -81,7 +82,8 @@ export default function Navbar({ user, setUser }) {
             </label>
         {user ? (
           <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar"data-tooltip-id="user-tooltip"
+      data-tooltip-content={user.displayName || user.email}>
               <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                 <img
                   src={user.photoURL || "https://i.pravatar.cc/150"}
@@ -101,6 +103,7 @@ export default function Navbar({ user, setUser }) {
               </li>
               <li><button onClick={handleLogout}>Logout</button></li>
             </ul>
+            <Tooltip id="user-tooltip" place="bottom" />
           </div>
         ) : (
           <>

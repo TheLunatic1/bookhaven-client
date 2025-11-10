@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../services/api";
 import { Link } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
 
 export default function AllBooks() {
   const [books, setBooks] = useState([]);
@@ -72,7 +73,13 @@ export default function AllBooks() {
             </figure>
             <div className="card-body">
               <h2 className="card-title">{book.title}</h2>
-              <p className="text-sm text-base-content/70">by {book.author}</p>
+              <p 
+                className="text-sm text-base-content/70"
+                data-tooltip-id="author-tooltip"
+                data-tooltip-content={`Added by: ${book.userName || book.userEmail}`}
+              >
+                by {book.author}
+              </p>
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
                   <span key={i} className={`text-xl ${i < book.rating ? "text-warning" : "text-base-300"}`}>★</span>
@@ -83,6 +90,7 @@ export default function AllBooks() {
                 <Link to={`/book/${book._id}`} className="btn btn-primary btn-sm">View Details</Link>
               </div>
             </div>
+            <Tooltip id="author-tooltip" />
           </div>
         ))}
       </div>
