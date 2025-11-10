@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useEffect, useState } from "react";
 import API from "../services/api";
+import { motion } from "framer-motion";
 
 export default function Home() {
   const { user } = useAuth();
@@ -23,36 +24,59 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-base-200">
-      <div className="hero min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 dark:from-gray-900 dark:to-amber-950">
+      <motion.div 
+        className="hero min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 dark:from-gray-900 dark:to-amber-950"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
         <div className="hero-content text-center">
-          <div className="max-w-md">
-            <img src="/src/assets/bhk.png" alt="The Book Haven" className="mx-auto mb-4 h-20" />
-            <h1 className="text-5xl md:text-6xl font-bold text-amber-900 dark:text-amber-100">
+          <motion.div 
+            className="max-w-md"
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+          >
+            <motion.h1 
+              className="text-5xl md:text-6xl font-bold text-amber-900 dark:text-amber-100"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.6 }}
+            >
               The Book Haven
-            </h1>
-            <p className="py-6 text-lg text-amber-800 dark:text-amber-200">
+            </motion.h1>
+            <motion.p 
+              className="py-6 text-lg text-amber-800 dark:text-amber-200"
+              initial={{ opacity: 0 }}
+              animate krzy={{ opacity: 1 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+            >
               Discover, share, and cherish your favorite books in a cozy community of readers.
-            </p>
-            <div className="space-x-4">
-              <Link to="/all-books" className="btn btn-primary bg-transparent">
-                Explore Books
+            </motion.p>
+            <motion.div 
+              className="space-x-4"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.9, duration: 0.6 }}
+            >
+              <Link to="/all-books" className="btn btn-primary">
+                All Books
               </Link>
               {user ? (
-                <Link to="/add-book" className="btn btn-primary bg-transparent">
-                  Add a Book
+                <Link to="/add-book" className="btn btn-outline">
+                  Create Book
                 </Link>
               ) : (
                 <Link to="/register" className="btn btn-outline">
                   Join Now
                 </Link>
               )}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
 
 
-      {/* LATEST BOOKS SECTION */}
       <div className="py-16 px-4 bg-base-100">
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12 text-amber-900 dark:text-amber-100">
