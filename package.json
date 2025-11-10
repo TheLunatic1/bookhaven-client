@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/lora": "^5.2.8",
+    "@fontsource/playfair-display": "^5.2.8",
     "@tailwindcss/vite": "^4.1.17",
     "autoprefixer": "^10.4.21",
     "axios": "^1.13.2",

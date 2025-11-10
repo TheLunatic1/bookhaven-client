@@ -36,7 +36,7 @@ export default function AddBook() {
             <select className="select select-bordered w-full" value={form.rating} onChange={e => setForm({ ...form, rating: Number(e.target.value) })}>
               {[1,2,3,4,5].map(n => <option key={n} value={n}>{n} Star{n>1?'s':''}</option>)}
             </select>
-            <button type="submit" className="btn btn-primary w-full">Add Book</button>
+            <button type="submit" className="btn btn-primary w-full ">Add Book</button>
           </form>
         </div>
       </div>

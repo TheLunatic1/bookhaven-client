@@ -1,2 +1,15 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+
+@import "@fontsource/playfair-display/700.css";
+@import "@fontsource/lora/400.css";
+@import "@fontsource/lora/700.css";
+
+html {
+  font-family: 'Lora', serif;
+}
+
+h1, h2, h3, .font-bold {
+  font-family: 'Playfair Display', serif;
+}

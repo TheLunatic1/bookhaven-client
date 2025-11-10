@@ -1,9 +1,44 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
-  theme: { extend: {} },
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        primary: "#8B4513",
+        secondary: "#D2691E",
+        accent: "#F4A460",
+      },
+      fontFamily: {
+        serif: ['"Playfair Display"', 'serif'],
+        sans: ['"Lora"', 'serif'],
+      },
+    },
+  },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["light", "dark"],   // enable toggle later
+    themes: [
+      {
+        light: {
+          ...require("daisyui/src/theming/themes")["light"],
+          primary: "#8B4513",
+          secondary: "#D2691E",
+          accent: "#F4A460",
+          "base-100": "#FFF8F0",
+          "base-200": "#FDF6F0",
+          "base-300": "#FAF1E6",
+          neutral: "#5D4037",
+          "neutral-content": "#FFFFFF",
+        },
+        dark: {
+          ...require("daisyui/src/theming/themes")["dark"],
+          primary: "#D2691E",
+          secondary: "#F4A460",
+          accent: "#FFB74D",
+          "base-100": "#2C1A0F",
+          "base-200": "#3D2414",
+          "base-300": "#4E2E19",
+          neutral: "#8D6E63",
+        },
+      },
+    ],
   },
 };

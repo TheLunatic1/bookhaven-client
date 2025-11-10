@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import AllBooks from "./pages/AllBooks";
 import AddBook from "./pages/AddBook";
 import MyBooks from "./pages/MyBooks";
+import BookDetails from "./pages/BookDetails";
 
 function App() {
   const { user, loading, setUser } = useAuth();
@@ -31,6 +32,7 @@ function App() {
           <Route path="/all-books" element={<AllBooks />} />
           <Route path="/add-book" element={<AddBook />} />
           <Route path="/my-books" element={<MyBooks />} />
+          <Route path="/book/:id" element={<BookDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>
