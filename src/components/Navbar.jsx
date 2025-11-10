@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
@@ -9,7 +8,6 @@ export default function Navbar({ user, setUser }) {
   const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
 
-  // Sync dark mode with <html> class
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
@@ -38,7 +36,7 @@ export default function Navbar({ user, setUser }) {
       </div>
 
       <div className="flex-none gap-2">
-        {/* Navigation Links */}
+        
         <ul className="menu menu-horizontal px-1 hidden md:flex">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/all-books">All Books</Link></li>
@@ -46,7 +44,7 @@ export default function Navbar({ user, setUser }) {
           <li><Link to="/my-books">My Books</Link></li>
         </ul>
 
-        {/* Mobile Menu */}
+        
         <div className="dropdown dropdown-end md:hidden">
           <label tabIndex={0} className="btn btn-ghost">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -60,15 +58,13 @@ export default function Navbar({ user, setUser }) {
             <li><Link to="/my-books">My Books</Link></li>
           </ul>
         </div>
-
-        {/* Dark Mode Toggle */}
+        
         <label className="swap swap-rotate mx-2">
           <input type="checkbox" checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
           <div className="swap-on">Dark Mode On</div>
           <div className="swap-off">Light Mode On</div>
         </label>
 
-        {/* User Menu */}
         {user ? (
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">

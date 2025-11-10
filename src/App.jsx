@@ -5,9 +5,12 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
+import AllBooks from "./pages/AllBooks";
+import AddBook from "./pages/AddBook";
+import MyBooks from "./pages/MyBooks";
 
 function App() {
-  const { user, loading, setUser } = useAuth(); // ← Add setUser
+  const { user, loading, setUser } = useAuth();
 
   if (loading) {
     return (
@@ -25,6 +28,9 @@ function App() {
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/register" element={<Register setUser={setUser} />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/all-books" element={<AllBooks />} />
+          <Route path="/add-book" element={<AddBook />} />
+          <Route path="/my-books" element={<MyBooks />} />
         </Route>
       </Routes>
     </BrowserRouter>
