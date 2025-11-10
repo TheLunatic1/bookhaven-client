@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import API from "../services/api";
 import { useAuth } from "../hooks/useAuth";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function MyBooks() {
   const { user } = useAuth();
@@ -16,6 +17,17 @@ export default function MyBooks() {
         .finally(() => setLoading(false));
     }
   }, [user]);
+
+  const handleDelete = async (bookId) => {
+  if (!window.confirm("Delete this book?")) return;
+  try {
+    await API.delete(`/books/${bookId}`, { data: { userEmail: user.email } });
+    toast.success("Book deleted");
+    setBooks(prev => prev.filter(b => b._id !== bookId));
+  } catch (err) {
+    toast.error("Failed to delete");
+  }
+};
 
   if (loading) return <div className="flex justify-center p-8"><span className="loading loading-spinner loading-lg"></span></div>;
 
@@ -36,8 +48,15 @@ export default function MyBooks() {
               <h2 className="card-title">{book.title}</h2>
               <p className="text-sm">by {book.author}</p>
               <div className="card-actions justify-end mt-4">
-                <button className="btn btn-sm btn-outline">Edit</button>
-                <button className="btn btn-sm btn-error">Delete</button>
+                <Link to={`/edit-book/${book._id}`} className="btn btn-sm btn-outline">
+                  Edit
+                </Link>
+                <button 
+                  onClick={() => handleDelete(book._id)} 
+                  className="btn btn-sm btn-error"
+                >
+                  Delete
+                </button>
               </div>
             </div>
           </div>
