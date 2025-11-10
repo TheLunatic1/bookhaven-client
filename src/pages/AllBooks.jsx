@@ -10,7 +10,7 @@ export default function AllBooks() {
     b.title.toLowerCase().includes(search.toLowerCase()) ||
     b.author.toLowerCase().includes(search.toLowerCase())
   );
-
+  const [sortBy, setSortBy] = useState("newest");
   useEffect(() => {
     const fetchBooks = async () => {
       try {
@@ -25,6 +25,18 @@ export default function AllBooks() {
     fetchBooks();
   }, []);
 
+
+  const filteredAndSorted = books
+    .filter(b =>
+      b.title.toLowerCase().includes(search.toLowerCase()) ||
+      b.author.toLowerCase().includes(search.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortBy === "rating-high") return b.rating - a.rating;
+      if (sortBy === "rating-low") return a.rating - b.rating;
+      return new Date(b.createdAt) - new Date(a.createdAt); // newest
+    });
+
   if (loading) return <div className="flex justify-center p-8"><span className="loading loading-spinner loading-lg"></span></div>;
 
 
@@ -34,7 +46,7 @@ export default function AllBooks() {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6 text-center">All Books</h1>
-      <div className="max-w-md mx-auto mb-6">
+      <div className="max-w-md mx-auto mb-6 flex flex-col justify-between md:flex-row gap-4 ">
         <input
           type="text"
           placeholder="Search by title or author..."
@@ -42,9 +54,18 @@ export default function AllBooks() {
           value={search}
           onChange={e => setSearch(e.target.value)}
         />
+        <select
+          className="select select-bordered"
+          value={sortBy}
+          onChange={e => setSortBy(e.target.value)}
+        >
+          <option value="newest">Newest First</option>
+          <option value="rating-high">Rating: High → Low</option>
+          <option value="rating-low">Rating: Low → High</option>
+        </select>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.map((book) => (
+        {filteredAndSorted.map((book) => (
           <div key={book._id} className="card bg-base-100 shadow-xl">
             <figure className="px-4 pt-4">
               <img src={book.coverImage} alt={book.title} onError={e => e.target.src = "https://via.placeholder.com/300x450?text=No+Cover"} className="rounded-xl h-48 object-cover w-full" />

@@ -29,7 +29,6 @@ export default function BookDetails() {
   }, [id, navigate]);
 
   const handleDelete = async () => {
-    if (!window.confirm("Delete this book?")) return;
     try {
       await API.delete(`/books/${id}`, { data: { userEmail: user.email } });
       toast.success("Book deleted");
