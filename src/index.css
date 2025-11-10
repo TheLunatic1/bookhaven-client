@@ -17,3 +17,18 @@ h1, h2, h3, .font-bold {
 html {
   color-scheme: light dark;
 }
+
+
+.logo-light {
+  display: block;
+}
+.logo-dark {
+  display: none;
+}
+
+[data-theme="dark"] .logo-light {
+  display: none;
+}
+[data-theme="dark"] .logo-dark {
+  display: block;
+}
