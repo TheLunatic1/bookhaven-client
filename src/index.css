@@ -13,3 +13,7 @@ html {
 h1, h2, h3, .font-bold {
   font-family: 'Playfair Display', serif;
 }
+
+html {
+  color-scheme: light dark;
+}

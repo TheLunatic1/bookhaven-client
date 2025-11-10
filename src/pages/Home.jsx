@@ -9,6 +9,7 @@ export default function Home() {
       <div className="hero min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 dark:from-gray-900 dark:to-amber-950">
         <div className="hero-content text-center">
           <div className="max-w-md">
+            <img src="/src/assets/bhk.png" alt="The Book Haven" className="mx-auto mb-4 h-20" />
             <h1 className="text-5xl md:text-6xl font-bold text-amber-900 dark:text-amber-100">
               The Book Haven
             </h1>
@@ -16,11 +17,11 @@ export default function Home() {
               Discover, share, and cherish your favorite books in a cozy community of readers.
             </p>
             <div className="space-x-4">
-              <Link to="/all-books" className="btn btn-primary">
+              <Link to="/all-books" className="btn btn-primary bg-transparent">
                 Explore Books
               </Link>
               {user ? (
-                <Link to="/add-book" className="btn btn-outline">
+                <Link to="/add-book" className="btn btn-primary bg-transparent">
                   Add a Book
                 </Link>
               ) : (

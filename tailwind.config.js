@@ -1,3 +1,5 @@
+import daisyui from "daisyui";
+
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -8,17 +10,16 @@ export default {
         accent: "#F4A460",
       },
       fontFamily: {
-        serif: ['"Playfair Display"', 'serif'],
-        sans: ['"Lora"', 'serif'],
+        serif: ['"Playfair Display"', "serif"],
+        sans: ['"Lora"', "serif"],
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [daisyui],
   daisyui: {
     themes: [
       {
         light: {
-          ...require("daisyui/src/theming/themes")["light"],
           primary: "#8B4513",
           secondary: "#D2691E",
           accent: "#F4A460",
@@ -27,9 +28,9 @@ export default {
           "base-300": "#FAF1E6",
           neutral: "#5D4037",
           "neutral-content": "#FFFFFF",
+          "base-content": "#2C1A0F",
         },
         dark: {
-          ...require("daisyui/src/theming/themes")["dark"],
           primary: "#D2691E",
           secondary: "#F4A460",
           accent: "#FFB74D",
@@ -37,6 +38,7 @@ export default {
           "base-200": "#3D2414",
           "base-300": "#4E2E19",
           neutral: "#8D6E63",
+          "base-content": "#F4A460",
         },
       },
     ],

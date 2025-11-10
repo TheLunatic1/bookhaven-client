@@ -3,19 +3,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import toast from "react-hot-toast";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Navbar({ user, setUser }) {
   const navigate = useNavigate();
-  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [darkMode]);
+  const theme = localStorage.getItem("theme");
+  if (theme === "dark") {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+}, []);
 
   const handleLogout = async () => {
     try {
@@ -31,28 +31,36 @@ export default function Navbar({ user, setUser }) {
   return (
     <div className="navbar bg-base-100 shadow-md sticky top-0 z-50">
       <div className="flex-1">
-        <Link to="/" className="btn btn-ghost text-2xl font-bold text-primary border-0 bg-transparent shadow-none">
-          <span className="text-3xl text-white ">The Book Haven</span>
+        <Link to="/" className="btn btn-ghost text-2xl font-bold border-0 bg-transparent shadow-none">
+          <img src="/src/assets/bhk.png" alt="" className="h-10 m-1" />
+          <span className="text-3xl">The Book Haven</span>
         </Link>
       </div>
 
-      <div className="hidden md:flex items-center gap-2">
+      <div className="hidden md:flex justify-center items-center gap-2 ">
         <ul className="menu menu-horizontal px-1">
           <li><Link to="/all-books">All Books</Link></li>
           <li><Link to="/add-book">Add Book</Link></li>
           <li><Link to="/my-books">My Books</Link></li>
         </ul>
 
-        <label className="swap swap-rotate mx-3">
-          <input
-            type="checkbox"
-            checked={darkMode}
-            onChange={() => setDarkMode(!darkMode)}
-          />
-          <span className="swap-on">Dark Mode On</span>
-          <span className="swap-off">Light Mode On</span>
-        </label>
 
+          <label className="swap swap-rotate">
+            <input
+              type="checkbox"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  document.documentElement.classList.add("dark");
+                  localStorage.setItem("theme", "dark");
+                } else {
+                  document.documentElement.classList.remove("dark");
+                  localStorage.setItem("theme", "light");
+                }
+              }}
+            />
+            <div className="swap-on text-[14px]">Dark Mode</div>
+            <div className="swap-off text-[14px]">Light Mode</div>
+          </label>
         {user ? (
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
@@ -97,14 +105,21 @@ export default function Navbar({ user, setUser }) {
             <li><Link to="/my-books">My Books</Link></li>
             <li className="menu-title">Theme</li>
             <li>
-              <label className="swap swap-rotate">
-                <input
-                  type="checkbox"
-                  checked={darkMode}
-                  onChange={() => setDarkMode(!darkMode)}
+              <label className="swap swap-rotate w-full justify-center">
+                <input 
+                  type="checkbox" 
+                  className="theme-controller" 
+                  value="dark" 
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      document.documentElement.classList.add("dark");
+                    } else {
+                      document.documentElement.classList.remove("dark");
+                    }
+                  }}
                 />
-                <span className="swap-on">Dark Mode On</span>
-                <span className="swap-off">Light Mode On</span>
+                <span className="swap-on text-[14px]">Dark Mode</span>
+                <span className="swap-off text-[14px]">Light Mode</span>
               </label>
             </li>
             {user ? (
