@@ -1,35 +1,59 @@
 import { useEffect, useState } from "react";
 import API from "../services/api";
 import { useAuth } from "../hooks/useAuth";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";         
 import toast from "react-hot-toast";
 import { Tooltip } from "react-tooltip";
+import { useNavigate } from "react-router-dom";
 
 export default function MyBooks() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();   
+  const navigate = useNavigate();
   const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [fetching, setFetching] = useState(true);
+
+
+  if (authLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
+
+  if (!user) {
+    toast.error("Please login to view your books");
+    navigate("/login", { replace: true });
+    return null;                 
+  }
+
 
   useEffect(() => {
-    if (user) {
-      API.get(`/books/my?email=${user.email}`)
-        .then(res => setBooks(res.data))
-        .catch(() => setBooks([]))
-        .finally(() => setLoading(false));
-    }
+    API.get(`/books/my?email=${user.email}`)
+      .then(res => setBooks(res.data))
+      .catch(() => setBooks([]))
+      .finally(() => setFetching(false));
   }, [user]);
 
-  const handleDelete = async (bookId) => {
-  try {
-    await API.delete(`/books/${bookId}`, { data: { userEmail: user.email } });
-    toast.success("Book deleted");
-    setBooks(prev => prev.filter(b => b._id !== bookId));
-  } catch (err) {
-    toast.error("Failed to delete");
-  }
-};
 
-  if (loading) return <div className="flex justify-center p-8"><span className="loading loading-spinner loading-lg"></span></div>;
+  const handleDelete = async (bookId) => {
+    try {
+      await API.delete(`/books/${bookId}`, { data: { userEmail: user.email } });
+      toast.success("Book deleted");
+      setBooks(prev => prev.filter(b => b._id !== bookId));
+    } catch (err) {
+      toast.error("Failed to delete");
+    }
+  };
+
+
+  if (fetching) {
+    return (
+      <div className="flex justify-center p-8">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto p-4">
@@ -37,7 +61,7 @@ export default function MyBooks() {
         <h1 className="text-3xl font-bold">My Books</h1>
         <Link to="/add-book" className="btn btn-primary">Add Book</Link>
       </div>
-      {/* Same grid as AllBooks */}
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {books.map(book => (
           <div key={book._id} className="card bg-base-100 shadow-xl">
@@ -69,6 +93,12 @@ export default function MyBooks() {
           </div>
         ))}
       </div>
+
+      {books.length === 0 && (
+        <p className="text-center text-base-content/60 mt-8">
+          You haven’t added any books yet.
+        </p>
+      )}
     </div>
   );
 }

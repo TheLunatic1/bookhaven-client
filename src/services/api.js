@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "https://bookhaven-server-drlru7ov5-salman-tohas-projects.vercel.app"
+  baseURL: "https://bookhaven-server.vercel.app/api"
 });
 
 export default API;
