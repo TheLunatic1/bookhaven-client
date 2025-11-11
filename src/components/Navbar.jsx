@@ -53,12 +53,12 @@ export default function Navbar({ user, setUser }) {
       <div className="flex-1">
         <Link to="/" className="btn btn-ghost text-2xl font-bold border-0 bg-transparent shadow-none">
           <img 
-            src="/public/assets/bhj.png" 
+            src="https://i.ibb.co.com/600XFQ8r/bhj.png" 
             alt="Book Haven Logo" 
             className="h-8 w-8 logo-light"
           />
           <img 
-            src="/public/assets/bhk.png" 
+            src="https://i.ibb.co.com/n86sQrNR/bhk.png" 
             alt="Book Haven Logo" 
             className="h-8 w-8 logo-dark"
           />

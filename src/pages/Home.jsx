@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-base-200">
       <motion.div 
-        className="hero min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 dark:from-gray-900 dark:to-amber-950"
+        className="hero min-h-screen bg-linear-to-br from-amber-50 to-orange-100 dark:from-[#bdc3c7] dark:to-[#2c3e50]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -37,6 +37,14 @@ export default function Home() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
           >
+            <motion.img 
+              src="https://i.ibb.co.com/n86sQrNR/bhk.png" 
+              alt="The Book Haven"
+              className="w-32 h-32 mx-auto mb-4"
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            />
             <motion.h1 
               className="text-5xl md:text-6xl font-bold text-amber-900 dark:text-amber-100"
               initial={{ scale: 0.8 }}
