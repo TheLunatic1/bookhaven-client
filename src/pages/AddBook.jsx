@@ -1,15 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import API from "../services/api";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import toast from "react-hot-toast";
 
 export default function AddBook() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({
     title: "", author: "", genre: "", rating: 5, summary: "", coverImage: ""
   });
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
+
+  if (!user) {
+    toast.error("Please login to add a book");
+    navigate("/login", { replace: true });
+    return null;
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
