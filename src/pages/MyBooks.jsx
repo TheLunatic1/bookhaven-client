@@ -1,4 +1,3 @@
-// src/pages/MyBooks.jsx
 import { useEffect, useState } from "react";
 import API from "../services/api";
 import { useAuth } from "../hooks/useAuth";
@@ -13,9 +12,8 @@ export default function MyBooks() {
   const [books, setBooks] = useState([]);
   const [fetching, setFetching] = useState(true);
 
-  // ——— ALL HOOKS FIRST (NEVER CONDITIONAL) ———
   useEffect(() => {
-    if (!user) return; // Skip fetch if not logged in
+    if (!user) return; 
 
     API.get(`/books/my?email=${user.email}`)
       .then(res => setBooks(res.data))
@@ -23,7 +21,6 @@ export default function MyBooks() {
       .finally(() => setFetching(false));
   }, [user]);
 
-  // ——— EARLY RETURN (AFTER HOOKS) ———
   if (authLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -38,7 +35,6 @@ export default function MyBooks() {
     return null;
   }
 
-  // ——— DELETE HANDLER ———
   const handleDelete = async (bookId) => {
     try {
       await API.delete(`/books/${bookId}`, { data: { userEmail: user.email } });
@@ -49,7 +45,6 @@ export default function MyBooks() {
     }
   };
 
-  // ——— RENDER ———
   if (fetching) {
     return (
       <div className="flex justify-center p-8">
