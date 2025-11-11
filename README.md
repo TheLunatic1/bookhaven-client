@@ -1,16 +1,29 @@
-# React + Vite
+# The Book Haven
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Live Site**: [https://bookhaven-client.web.app/](https://bookhaven-client.web.app/)
 
-Currently, two official plugins are available:
+## Features
+- Full CRUD for books with **Firebase Auth** (Email + Google)
+- **My Books**, **Add Book**, **Edit Book** – **protected routes**
+- Sort by rating, animated banner with **Framer Motion**
+- Dynamic logo
+- **React Hot Toast** + **React Tooltip**
+- Deployed: **Firebase (Client)** + **Vercel (Server)** + **MongoDB Atlas**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack (Client)
+| Tool | Version | Purpose |
+|------|--------|--------|
+| **React** | `18.x` | UI Library |
+| **Vite** | `5.x` | Build Tool |
+| **React Router DOM** | `6.x` | Routing |
+| **Firebase Auth** | `10.x` | Authentication |
+| **Axios** | `1.x` | API Calls |
+| **Framer Motion** | `11.x` | Animations |
+| **React Hot Toast** | `2.x` | Notifications |
+| **React Tooltip** | `5.x` | Tooltips |
+| **Tailwind CSS** | `3.x` | Styling |
+| **DaisyUI** | `4.x` | UI Components |
+| **date-fns** | `3.x` | (Optional) Date Formatting |
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Repositories
+- Client: [https://github.com/TheLunatic1/bookhaven-client.git](https://github.com/TheLunatic1/bookhaven-client.git)
