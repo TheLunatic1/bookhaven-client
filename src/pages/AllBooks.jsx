@@ -35,7 +35,7 @@ export default function AllBooks() {
     .sort((a, b) => {
       if (sortBy === "rating-high") return b.rating - a.rating;
       if (sortBy === "rating-low") return a.rating - b.rating;
-      return new Date(b.createdAt) - new Date(a.createdAt); // newest
+      return new Date(b.createdAt) - new Date(a.createdAt);
     });
 
   if (loading) return <div className="flex justify-center p-8"><span className="loading loading-spinner loading-lg"></span></div>;

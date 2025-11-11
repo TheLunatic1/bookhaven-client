@@ -8,34 +8,33 @@ import { Tooltip } from "react-tooltip";
 export default function Navbar({ user, setUser }) {
   const navigate = useNavigate();
 
-  useEffect(() => {
-  const checkbox = document.querySelector(".theme-controller");
-  if (!checkbox) return;
-
-  const handleChange = () => {
-    const isDark = checkbox.checked;
-    const theme = isDark ? "dark" : "light";
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  };
-
-  checkbox.addEventListener("change", handleChange);
-  return () => checkbox.removeEventListener("change", handleChange);
-}, []);
 
   useEffect(() => {
-  const theme = localStorage.getItem("theme");
-  if (theme === "dark") {
-    document.documentElement.classList.add("dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-  }
-}, []);
+    const checkboxes = document.querySelectorAll(".theme-controller");
+    if (checkboxes.length === 0) return;
+
+    const handleChange = (e) => {
+      const isDark = e.target.checked;
+      const theme = isDark ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", theme);
+      localStorage.setItem("theme", theme);
+      document.documentElement.classList.toggle("dark", isDark);
+
+      checkboxes.forEach(cb => cb.checked = isDark);
+    };
+
+    checkboxes.forEach(cb => cb.addEventListener("change", handleChange));
+
+    const saved = localStorage.getItem("theme");
+    const isDark = saved === "dark";
+    checkboxes.forEach(cb => cb.checked = isDark);
+    document.documentElement.setAttribute("data-theme", saved || "light");
+    document.documentElement.classList.toggle("dark", isDark);
+
+    return () => {
+      checkboxes.forEach(cb => cb.removeEventListener("change", handleChange));
+    };
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -52,55 +51,34 @@ export default function Navbar({ user, setUser }) {
     <div className="navbar bg-base-100 shadow-md sticky top-0 z-50">
       <div className="flex-1">
         <Link to="/" className="btn btn-ghost text-2xl font-bold border-0 bg-transparent shadow-none">
-          <img 
-            src="https://i.ibb.co.com/600XFQ8r/bhj.png" 
-            alt="Book Haven Logo" 
-            className="h-8 w-8 logo-light"
-          />
-          <img 
-            src="https://i.ibb.co.com/n86sQrNR/bhk.png" 
-            alt="Book Haven Logo" 
-            className="h-8 w-8 logo-dark"
-          />
+          <img src="https://i.ibb.co.com/600XFQ8r/bhj.png" alt="Book Haven Logo" className="h-8 w-8 logo-light" />
+          <img src="https://i.ibb.co.com/n86sQrNR/bhk.png" alt="Book Haven Logo" className="h-8 w-8 logo-dark" />
           <span className="text-3xl">The Book Haven</span>
         </Link>
       </div>
 
-      <div className="hidden md:flex justify-center items-center gap-2 ">
+      <div className="hidden md:flex justify-center items-center gap-2">
         <ul className="menu menu-horizontal px-1">
           <li><Link to="/all-books">All Books</Link></li>
           <li><Link to="/add-book">Add Book</Link></li>
           <li><Link to="/my-books">My Books</Link></li>
         </ul>
 
+        <label className="swap swap-rotate mx-3">
+          <input type="checkbox" className="theme-controller" />
+          <div className="swap-on text-sm">Dark</div>
+          <div className="swap-off text-sm">Light</div>
+        </label>
 
-          {/* Dark Mode Toggle - Desktop */}
-            <label className="swap swap-rotate mx-3">
-              <input type="checkbox" className="theme-controller" value="dark" />
-              <div className="swap-on text-[14px]">Dark Mode On</div>
-              <div className="swap-off text-[14px]">Light Mode On</div>
-            </label>
         {user ? (
           <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar"data-tooltip-id="user-tooltip"
-      data-tooltip-content={user.displayName || user.email}>
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar" data-tooltip-id="user-tooltip" data-tooltip-content={user.displayName || user.email}>
               <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img
-                  src={user.photoURL || "https://i.pravatar.cc/150"}
-                  alt={user.displayName || "User"}
-                />
+                <img src={user.photoURL || "https://i.pravatar.cc/150"} alt={user.displayName || "User"} />
               </div>
             </label>
-            <ul
-              tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <div className="justify-between">
-                  {user.displayName || user.email}
-                  <span className="badge badge-xs badge-primary">Logged in</span>
-                </div>
-              </li>
+            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+              <li><div className="justify-between">{user.displayName || user.email}<span className="badge badge-xs badge-primary">Logged in</span></div></li>
               <li><button onClick={handleLogout}>Logout</button></li>
             </ul>
             <Tooltip id="user-tooltip" place="bottom" />
@@ -126,11 +104,11 @@ export default function Navbar({ user, setUser }) {
             <li><Link to="/my-books">My Books</Link></li>
             <li className="menu-title">Theme</li>
             <li>
-            <label className="swap swap-rotate w-full justify-center">
-            <input type="checkbox" className="theme-controller" value="dark" />
-            <div className="swap-on">Dark Mode On</div>
-            <div className="swap-off">Light Mode On</div>
-            </label>
+              <label className="swap swap-rotate w-full justify-center">
+                <input type="checkbox" className="theme-controller" />
+                <div className="swap-on">Dark</div>
+                <div className="swap-off">Light</div>
+              </label>
             </li>
             {user ? (
               <>
