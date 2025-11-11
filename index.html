@@ -2,18 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/src/assets/bhk.png" />
+    <link rel="icon" type="image/png" href="https://i.ibb.co.com/n86sQrNR/bhk.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Book Haven</title>
     
 
     <script>
-      // Only run if NO theme saved
       if (!localStorage.getItem("theme")) {
         localStorage.setItem("theme", "dark");
         document.documentElement.setAttribute("data-theme", "dark");
       } else {
-        // Use saved theme
         const theme = localStorage.getItem("theme") || "dark";
         document.documentElement.setAttribute("data-theme", theme);
       }
